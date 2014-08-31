@@ -1,21 +1,23 @@
 package daftControl;
 	
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import daftControl.view.MatrixController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
+import daftControl.model.Led;
+import daftControl.view.MenuController;
 
 
 public class Main extends Application {
 	
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	public List<Led> allLeds = new ArrayList<Led>();
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -23,7 +25,7 @@ public class Main extends Application {
 			this.primaryStage = primaryStage;
 			this.primaryStage.setTitle("DaftControl");
 			initRootLayout();
-			//initDesignSignLayout();
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -34,6 +36,9 @@ public class Main extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("view/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
+			
+			MenuController mC = loader.getController();
+			mC.setMainApp(this);
 			
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
@@ -46,17 +51,7 @@ public class Main extends Application {
 	public Stage getPrimaryStage() {
 		return this.primaryStage;
 	}
-	
-	public void initDesignSignLayout() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class.getResource("view/DesignSignMenu.fxml"));				
-			GridPane desginMenu = (GridPane) loader.load();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}

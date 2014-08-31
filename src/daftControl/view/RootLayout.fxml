@@ -47,6 +47,6 @@
       </VBox>
    </top>
    <center>
-      <Group fx:id="mainGroup" BorderPane.alignment="CENTER" />
+      <Group fx:id="mainGroup" BorderPane.alignment="TOP_LEFT" />
    </center>
 </BorderPane>

@@ -10,6 +10,9 @@ import javafx.scene.layout.GridPane;
 import daftControl.Main;
 
 public class MenuController {
+	
+	private Main mainApp;
+	
 	@FXML
 	private GridPane toolBar;
 	
@@ -22,6 +25,12 @@ public class MenuController {
 	@FXML
 	private Group mainGroup;
 	
+	public MenuController() {}
+	
+	public void setMainApp(Main mainApp) {
+		this.mainApp = mainApp;
+	}
+	
 	@FXML
 	private void designView() {
 		try {
@@ -30,6 +39,8 @@ public class MenuController {
 			toolBar.getChildren().setAll(loader.load());
 			
 			MatrixController mC = new MatrixController();
+			mC.setMainApp(mainApp);
+			
 			mC.initializeMatrix(mainGroup, 40, 8);
 			
 		} catch (IOException e) {
