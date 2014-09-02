@@ -1,14 +1,13 @@
 package daftControl;
 	
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import daftControl.Util.TwoDimensionalArrayList;
 import daftControl.model.Led;
 import daftControl.view.MenuController;
 
@@ -17,7 +16,7 @@ public class Main extends Application {
 	
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	public List<Led> allLeds = new ArrayList<Led>();
+	public TwoDimensionalArrayList<Led> allLeds = new TwoDimensionalArrayList<Led>();
 	
 	@Override
 	public void start(Stage primaryStage) {

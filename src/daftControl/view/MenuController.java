@@ -38,10 +38,12 @@ public class MenuController {
 			loader.setLocation(Main.class.getResource("view/DesignSignMenu.fxml"));
 			toolBar.getChildren().setAll(loader.load());
 			
-			MatrixController mC = new MatrixController();
-			mC.setMainApp(mainApp);
+			Matrix m = new Matrix();
+			m.initializeMatrix(mainGroup);
 			
-			mC.initializeMatrix(mainGroup, 40, 8);
+			MatrixController mC = loader.getController();
+			mC.setMainApp(mainApp);
+			mC.setMatrix(m);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
