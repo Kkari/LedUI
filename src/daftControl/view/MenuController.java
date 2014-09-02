@@ -8,10 +8,13 @@ import javafx.scene.Group;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import daftControl.Main;
+import daftControl.model.SaveMngt;
+import daftControl.model.SaveMngt.Pages;
 
 public class MenuController {
 	
 	private Main mainApp;
+	private SaveMngt save = new SaveMngt();
 	
 	@FXML
 	private GridPane toolBar;
@@ -38,6 +41,8 @@ public class MenuController {
 			loader.setLocation(Main.class.getResource("view/DesignSignMenu.fxml"));
 			toolBar.getChildren().setAll(loader.load());
 			
+			save.page = Pages.DESIGN;
+			
 			Matrix m = new Matrix();
 			m.initializeMatrix(mainGroup);
 			
@@ -48,5 +53,10 @@ public class MenuController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML
+	private void saveMenuItem() {
+		save.save(mainApp.allLeds);
 	}
 }

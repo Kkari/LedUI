@@ -1,5 +1,7 @@
 package daftControl.view;
 
+import java.util.ArrayList;
+
 import javafx.fxml.FXML;
 import daftControl.Main;
 import daftControl.model.Led;
@@ -48,6 +50,11 @@ public class MatrixController {
 	}
 	
 	private void remapCircles() {
+		
+		for (ArrayList<Led> list : mainApp.allLeds)
+			for (Led ld : list)
+				ld.clearCircle();
+		
 		for(int i = 0; i < m.circles.size(); i++) {
 			for (int j = 0; j < m.circles.get(0).size(); j++) {
 				mainApp.allLeds.get(i + rightShift, j).setC(m.circles.get(i, j));
