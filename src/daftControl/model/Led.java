@@ -2,7 +2,6 @@ package daftControl.model;
 
 import java.io.Serializable;
 
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Led implements Serializable{
@@ -11,40 +10,25 @@ public class Led implements Serializable{
 	private int x;
 	private int y;
 	private boolean lit;
-	private transient Circle c;
 	
 	public Led (int x, int y, Circle c) {
-		this.setX(x);
-		this.setY(y);
+		this.x = x;
+		this.y = y;
 		this.lit = false;
-		this.setC(c);
-		c.setOnMouseClicked((event) -> this.toggleLed());
 	}
 	
 	public Led (int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.lit = false;
-		this.c = null;
 	}
 
-	private void toggleLed() {
-		setLit(!lit);
-	}
-	
 	public boolean isLit() {
 		return lit;
 	}
 	
 	public void setLit(boolean lit) {
 		this.lit = lit;
-		if (lit == true) {
-			getC().setFill(Color.BLUE);
-			
-			
-		} else {
-			getC().setFill(Color.RED);
-		}
 	}
 
 	public int getY() {
@@ -61,19 +45,5 @@ public class Led implements Serializable{
 
 	public void setX(int x) {
 		this.x = x;
-	}
-
-	public Circle getC() {
-		return c;
-	}
-
-	public void setC(Circle c) {
-		this.c = c;
-		setLit(lit);
-		c.setOnMouseClicked((event) -> this.toggleLed());
-	}
-	
-	public void clearCircle() {
-		this.c = null;
 	}
 }
