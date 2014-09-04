@@ -10,7 +10,7 @@ public class Led implements Serializable{
 	private static final long serialVersionUID = -8754039049224836277L;
 	private int x;
 	private int y;
-	private transient boolean lit;
+	private boolean lit;
 	private transient Circle c;
 	
 	public Led (int x, int y, Circle c) {

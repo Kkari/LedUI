@@ -9,13 +9,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import daftControl.Util.TwoDimensionalArrayList;
 import daftControl.model.Led;
-import daftControl.view.MenuController;
 
 
 public class Main extends Application {
 	
 	private Stage primaryStage;
 	private BorderPane rootLayout;
+	//TODO: implement Designspace/AnimationsSpace in controllerunits instead
 	public TwoDimensionalArrayList<Led> allLeds = new TwoDimensionalArrayList<Led>();
 	
 	@Override
@@ -35,9 +35,6 @@ public class Main extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(Main.class.getResource("view/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
-			
-			MenuController mC = loader.getController();
-			mC.setMainApp(this);
 			
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);

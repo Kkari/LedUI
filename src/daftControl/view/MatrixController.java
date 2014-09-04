@@ -4,39 +4,30 @@ import java.util.ArrayList;
 
 import javafx.fxml.FXML;
 import daftControl.Main;
+import daftControl.model.DesignSpace;
 import daftControl.model.Led;
 
 public class MatrixController {
 	
 	private int rightShift = 0;
 	Matrix m;
-	private Main mainApp;
+	private DesignSpace workspace;
 	
+	@Deprecated 
 	public void setMainApp(Main mainApp) {
-		this.mainApp = mainApp;
 	}
 	
-	public void setMatrix(Matrix m) {
-		this.m = m;
-		bindMatrix();
-	}
-	
-	private void bindMatrix () {
-		for (int i = 0; i < m.circles.size(); i++)
-			for(int j = 0; j < m.circles.get(0).size(); j++)
-				mainApp.allLeds.add(i,j,new Led(i,j,m.circles.get(i, j)));
+	public void setWorkSpace(DesignSpace workspace) {
+		this.workspace = workspace;
+		remapCircles();
 	}
 	
 	@FXML
 	public void toolBarShiftRight() {
 		rightShift++;
 		
-		if(mainApp.allLeds.size() <= m.circles.size() + rightShift) {
-			int temp = mainApp.allLeds.size();
-			for (int i = 0; i < m.circles.get(0).size(); i++) {
-				mainApp.allLeds.add(temp, i,
-						new Led(temp, i));
-			}
+		if(workspace.getAllLeds().size() <= m.circles.size() + rightShift) {
+			workspace.addColumn();
 		}
 		
 		remapCircles();
@@ -51,13 +42,14 @@ public class MatrixController {
 	
 	private void remapCircles() {
 		
-		for (ArrayList<Led> list : mainApp.allLeds)
+		for (ArrayList<Led> list : workspace.getAllLeds())
 			for (Led ld : list)
+				if(ld.getC() != null)
 				ld.clearCircle();
 		
 		for(int i = 0; i < m.circles.size(); i++) {
 			for (int j = 0; j < m.circles.get(0).size(); j++) {
-				mainApp.allLeds.get(i + rightShift, j).setC(m.circles.get(i, j));
+				workspace.getAllLeds().get(i + rightShift, j).setC(m.circles.get(i, j));
 			}
 		}
 	}
@@ -65,6 +57,10 @@ public class MatrixController {
 
 	
 	public MatrixController() {}
+
+	public void setMatrix(Matrix m2) {
+		this.m = m2;
+	}
 	
 	
 }

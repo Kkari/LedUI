@@ -8,13 +8,11 @@ import javafx.scene.Group;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.GridPane;
 import daftControl.Main;
-import daftControl.model.SaveMngt;
-import daftControl.model.SaveMngt.Pages;
+import daftControl.model.DesignSpace;
 
 public class MenuController {
 	
-	private Main mainApp;
-	private SaveMngt save = new SaveMngt();
+	private DesignSpace workspace;
 	
 	@FXML
 	private GridPane toolBar;
@@ -30,10 +28,6 @@ public class MenuController {
 	
 	public MenuController() {}
 	
-	public void setMainApp(Main mainApp) {
-		this.mainApp = mainApp;
-	}
-	
 	@FXML
 	private void designView() {
 		try {
@@ -41,14 +35,16 @@ public class MenuController {
 			loader.setLocation(Main.class.getResource("view/DesignSignMenu.fxml"));
 			toolBar.getChildren().setAll(loader.load());
 			
-			save.page = Pages.DESIGN;
-			
 			Matrix m = new Matrix();
 			m.initializeMatrix(mainGroup);
 			
+			if (workspace == null) {
+				workspace = new DesignSpace(Matrix.MATRIX_WIDTH, Matrix.MATRIX_HEIGHT);
+			}
+			
 			MatrixController mC = loader.getController();
-			mC.setMainApp(mainApp);
 			mC.setMatrix(m);
+			mC.setWorkSpace(workspace);
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -57,6 +53,13 @@ public class MenuController {
 	
 	@FXML
 	private void saveMenuItem() {
-		save.save(mainApp.allLeds);
+		workspace.save();
+	}
+	
+	@FXML
+	private void loadMenuItem() {
+		workspace = DesignSpace.loadFromFile();	
+		workspace.activeToAllLeds(Matrix.MATRIX_WIDTH, Matrix.MATRIX_HEIGHT);
+		designView();
 	}
 }
